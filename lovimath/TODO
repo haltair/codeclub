@@ -1,0 +1,94 @@
+Here are some project ideas to improve the matrix library:
+
+Idea: Sparse Matrices
+============================================================================================
+
+// This project might be mathematically educational, and may force you to learn how
+// to interface FORTRAN and C.  It will also exercise C++ concepts, e.g. probably
+// inheritance. 
+//
+// This would be a sizable project.  (Thankfully, there's no reason to finish it all in one go.)
+
+Currently the Matrix class is written with no sparse matrix support in mind.
+Sparse matrices, however, are useful.  So, let's add support!
+
+A starting point for design:
+
+ * Let's add a SparseMatrix class.
+ * SparseMatrix will share functionality / method signatures with Matrix.  So let's find a way to enable code re-use:
+ ** We probably can use inheritance:
+ *** Refactor Matrix into 2 classes, AbstractMatrix and Matrix.
+ *** AbstractMatrix will be an abstract base class for Matrix and SparseMatrix.
+ * We should provide conversion capabilities between SparseMatrix and Matrix as desired.
+ ** Consider constructor overloads, assignment operators, etc.
+ * How do SparseMatrices and Matrices interact when we want to do arithmetic between them?
+ ** Consult Matlab for its behavior
+ ** Consider operator and function overloads to let SparseMatrix and Matrix work well together.
+
+Some 3rd party libraries to look at for a starting point (Neil's nmath Matrix code tipped me off to these):
+
+UMFPACK:
+http://en.wikipedia.org/wiki/UMFPACK
+http://www.cise.ufl.edu/research/sparse/umfpack/UMFPACK/Doc/QuickStart.pdf.
+
+ARPACK:
+http://en.wikipedia.org/wiki/ARPACK
+
+LSQR:
+http://www.stanford.edu/group/SOL/software.html
+
+
+Idea: Round out the Matrix class with your choice of more MATLAB-like functionality;
+============================================================================================
+
+// This project might be mathematically educational, and may force you to learn how
+// to interface FORTRAN and C.  But it probably won't be a great exercise in learning
+// C++ in and of itself.
+
+I started writing a Matrix class to bring MATLAB-like matrices to C++.  But I
+only implemented the subset of MATLAB functionality I wanted to use at the time.
+Sometimes, I skimped on efficiency for a simple implementation.
+
+You can comb through what's in the Matrix class and see what you'd like to add.
+It can be functions provided by MATLAB, or functions not in MATLAB but that you
+want anyways.
+
+One thing that is left partially crappily implemented are convolutions.  Anything
+Fourier related?  Heck no.
+
+Iterative methods?  Didn't touch them.
+
+Hint: Consider algorithms and/or 3rd party libraries that MATLAB itself uses.
+Read the MATLAB functions' documentation.  It's a fairly open book.
+
+
+Idea: Look into reducing Matrix copies
+============================================================================================
+
+// This project might be educational for modern / advanced C++ topics.  It might not be easy
+// as a beginner project, or necessarily the most useful improvement.  It's about an efficiency
+// gain efficiency passing matrices around.
+
+Now that C++11 support is fairly good in recent versions of gcc and other compilers, we can
+look at using r-value references as a performance enhancement:
+
+http://en.wikipedia.org/wiki/C++11#Rvalue_references_and_move_constructors
+
+I haven't thought this one through, or evaluated if copies are really a problem with the current
+code-base.  (But I think they are).  Check it out at your own risk (and education).
+
+
+Idea: Add error checking / exception support
+============================================================================================
+
+// This project might be educational for exception handling and for thinking about
+// meaningful Exception class heirarchies.
+
+Right now, the Matrix class does no bounds checking or checking for input sanity.
+(E.g.: if you call a method expecing a 3x3 rotation matrix, it better damn well be
+a 3x3 rotation matrix.  Otherwise, all hell will break loose.  Not sure if this example
+is real or fictional, but you get the idea.  Segfaults are bad, mhkay.)
+
+Such sanity checks can be a performance hit, however.  So let's add #define(s) for whether
+we want to spend the cpu cycles checking things.
+
