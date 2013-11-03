@@ -36,4 +36,4 @@ extern "C" {
 
     // Constructs orthogonal matrix from householder transformation vectors / scalars, as returned by LAPACK qr factorization routines
     void dorgqr_(long *m, long *n, long *k, double *A, long *lda, double *tau, double *work, long *lwork, long *info);
-} 
+}

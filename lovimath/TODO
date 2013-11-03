@@ -5,7 +5,7 @@ Idea: Sparse Matrices
 
 // This project might be mathematically educational, and may force you to learn how
 // to interface FORTRAN and C.  It will also exercise C++ concepts, e.g. probably
-// inheritance. 
+// inheritance.
 //
 // This would be a sizable project.  (Thankfully, there's no reason to finish it all in one go.)
 

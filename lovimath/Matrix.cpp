@@ -56,7 +56,7 @@ namespace dlovi {
         iss >> junk;
         if (junk == ']') {
             m_nCols = 0;
-            m_nRows = 0;	
+            m_nRows = 0;
             return;
         }
         iss.str(strMatrix);
